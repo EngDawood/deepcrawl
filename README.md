@@ -1,42 +1,28 @@
-# Deepcrawl
+# deepcrawl worker
 
-> WARNING: DO NOT USE DEEPCRAWL IN PRODUCTION RIGHT NOW AS IT IS SUBJECT TO CHANGE AND STILL UNDER RAPID DEVELOPMENT. USE AT YOUR OWN RISK!
+Self-hosted [Deepcrawl](https://github.com/lumpinif/deepcrawl) API worker (`apps/workers/v0`) with the packages it needs to build. Deployed to Cloudflare Workers in `jwt` auth mode.
 
-**100% free and open-source Firecrawl alternative with better performance and flexibility.**
+## Layout
 
-Ask DeepWiki about this repo
+- `apps/workers/v0`: the worker. Config is in `wrangler.jsonc` (D1 `DB_V0`, two KV namespaces, `AUTH_MODE=jwt`).
+- `packages/*`: shared workspace packages the worker imports.
 
-[![Ask DeepWiki about this repo](https://deepwiki.com/badge.svg)](https://deepwiki.com/lumpinif/deepcrawl)  
+## Usage
 
-![shots](./public/og.jpg)
+```bash
+pnpm install
+pnpm typecheck
+pnpm build     # dry-run bundle to apps/workers/v0/dist
+pnpm migrate   # apply D1 migrations (needs CLOUDFLARE_API_TOKEN)
+pnpm deploy
+```
 
-> NOTE: DeepCrawl doesn’t target anti-scraping or anti-bot purposes. It’s optimized for high‑frequency agent workloads that scrape public pages to extract cleaned Markdown and a hierarchical links tree.
+`JWT_SECRET` is a Wrangler secret and is not stored in this repo:
 
-Deepcrawl is an agent-oriented website data context extraction platform. It extracts cleaned markdown of page content, agent-favoured hierarchical links tree, and metadata that LLMs can digest with minimal token cost to reduce context switching and hallucination.
+```bash
+cd apps/workers/v0 && pnpm exec wrangler secret put JWT_SECRET
+```
 
+Clients send `Authorization: Bearer <token>`, an HS256 JWT signed with that secret and carrying `sub`, `iat` and `exp`.
 
-> Full Platform (Nextjs Dashboard, API Workers, Auth Workers, and Database) is open and transparent.
-
-## Documentation
-
-Visit https://deepcrawl.dev/docs to view the documentation.
-
-## Contributing
-
-Please read the [contributing guide](./CONTRIBUTING.md).
-
-## License
-
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-
-Open Source. Open Code - built with ❤️ by [@felixLu](https://x.com/felixlu1018).
-
-## Star History
-
-<a href="https://www.star-history.com/?repos=lumpinif%2Fdeepcrawl&type=date&legend=top-left">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=lumpinif/deepcrawl&type=date&theme=dark&legend=top-left&sealed_token=AuOd-igUL8RBADcMDJIZup-6YHLyi5eT3BzldzYkDCIi3Us8qxsZkWiaZ5SIm1IR84YUOI9yzxN0zses4ifkj0St049Pp1jBoLGSB1xciMWkwvMdOC72uwHvKKbYSJYP2wu9IiCdxvY2kpu1GV229MLZc7-vq223mW18k5Vqfn2gh3Ri8XIjpW1hH4l-" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=lumpinif/deepcrawl&type=date&legend=top-left&sealed_token=AuOd-igUL8RBADcMDJIZup-6YHLyi5eT3BzldzYkDCIi3Us8qxsZkWiaZ5SIm1IR84YUOI9yzxN0zses4ifkj0St049Pp1jBoLGSB1xciMWkwvMdOC72uwHvKKbYSJYP2wu9IiCdxvY2kpu1GV229MLZc7-vq223mW18k5Vqfn2gh3Ri8XIjpW1hH4l-" />
-   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=lumpinif/deepcrawl&type=date&legend=top-left&sealed_token=AuOd-igUL8RBADcMDJIZup-6YHLyi5eT3BzldzYkDCIi3Us8qxsZkWiaZ5SIm1IR84YUOI9yzxN0zses4ifkj0St049Pp1jBoLGSB1xciMWkwvMdOC72uwHvKKbYSJYP2wu9IiCdxvY2kpu1GV229MLZc7-vq223mW18k5Vqfn2gh3Ri8XIjpW1hH4l-" />
- </picture>
-</a>
+Upstream project: MIT licensed, see `LICENSE`.

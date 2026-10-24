@@ -1,6 +1,0 @@
-{
-  "outputDirectory": ".next",
-  "regions": ["sfo1"],
-  "framework": "nextjs",
-  "installCommand": "pnpm install --frozen-lockfile"
-}

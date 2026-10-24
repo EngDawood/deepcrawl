@@ -1,50 +1,16 @@
 {
-  "name": "deepcrawl",
+  "name": "deepcrawl-worker",
   "version": "0.0.1",
   "private": true,
   "license": "MIT",
-  "author": {
-    "name": "Felix Lu",
-    "url": "https://x.com/felixlu1018"
-  },
-  "workspaces": [
-    "apps/*",
-    "apps/workers/*",
-    "packages/*",
-    "packages/db/db-auth",
-    "packages/db/db-d1",
-    "packages/sdks/js-ts"
-  ],
   "scripts": {
-    "build": "turbo build",
-    "dev": "turbo dev",
-    "sherif": "pnpm dlx sherif@latest",
-    "sherif:fix": "pnpm dlx sherif@latest --fix -i @types/node",
-    "typecheck": "turbo typecheck",
-    "biome:ci": "biome ci .",
-    "check": "pnpm install && pnpm typecheck && pnpm sherif && biome check . && turbo check",
-    "fix": "biome check . --write && turbo fix && pnpm sherif:fix",
-    "check:ci": "pnpm biome:ci && pnpm turbo check --no-daemon && pnpm --filter deepcrawl test -- --run && pnpm sdk-ts:build",
-    "clean": "cd scripts && npx tsx clean.ts",
-    "clean:install": "cd scripts && npx tsx clean.ts && pnpm install",
-    "jwt:mint": "pnpm exec tsx scripts/jwt-mint.ts",
-    "env:generate": "pnpm exec tsx scripts/env/generate-env-examples.ts",
-    "env:sync:local": "pnpm exec tsx scripts/env/sync-local-env.ts",
-    "env:sync:vars": "pnpm exec tsx scripts/env/sync-to-vars.ts",
-    "env:sync:cloudflare:secrets": "pnpm exec tsx scripts/env/sync-cloudflare-secrets.ts",
-    "env:sync:vercel": "pnpm exec tsx scripts/env/sync-vercel-env.ts",
-    "env:bootstrap": "pnpm exec tsx scripts/env/bootstrap-env-vars.ts && turbo cf-typegen --filter=deepcrawl-worker-auth --filter=deepcrawl-worker-v0",
-    "test:env": "pnpm exec tsx --test scripts/env/__tests__/*.test.ts",
-    "prepare": "husky",
-    "changeset": "changeset",
-    "cv": "changeset version",
-    "release": "changeset publish",
-    "sdk-ts:build": "pnpm -C packages/sdks/js-ts build"
+    "typecheck": "pnpm -C apps/workers/v0 typecheck",
+    "build": "pnpm -C apps/workers/v0 exec wrangler deploy --dry-run --minify --outdir dist",
+    "deploy": "pnpm -C apps/workers/v0 exec wrangler deploy --minify",
+    "migrate": "pnpm -C apps/workers/v0 exec wrangler d1 migrations apply DB_V0 --remote"
   },
   "devDependencies": {
     "@biomejs/biome": "catalog:",
-    "@changesets/changelog-github": "catalog:",
-    "@changesets/cli": "catalog:",
     "@deepcrawl/runtime": "workspace:*",
     "@deepcrawl/typescript-config": "workspace:*",
     "@orpc/client": "catalog:",
@@ -54,19 +20,11 @@
     "@orpc/openapi-client": "catalog:",
     "@orpc/server": "catalog:",
     "@orpc/zod": "catalog:",
-    "@tailwindcss/postcss": "catalog:",
     "better-auth": "catalog:",
     "dotenv-cli": "catalog:",
-    "fumadocs-ui": "catalog:",
     "hono": "catalog:",
-    "husky": "catalog:",
-    "lint-staged": "catalog:",
     "rimraf": "catalog:",
-    "shadcn": "catalog:",
-    "tailwind-scrollbar": "catalog:",
-    "tailwindcss": "catalog:",
     "turbo": "catalog:",
-    "tw-animate-css": "catalog:",
     "typescript": "catalog:",
     "wrangler": "catalog:",
     "zod": "catalog:"
@@ -77,16 +35,10 @@
   },
   "pnpm": {
     "onlyBuiltDependencies": [
-      "@tailwindcss/oxide",
-      "@vercel/speed-insights",
-      "better-sqlite3",
-      "core-js-pure",
       "esbuild",
-      "msw",
-      "sharp",
-      "unrs-resolver",
-      "vue-demi",
-      "workerd"
+      "workerd",
+      "better-sqlite3",
+      "unrs-resolver"
     ]
   }
 }
