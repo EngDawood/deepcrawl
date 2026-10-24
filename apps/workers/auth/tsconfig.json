@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "lib": ["ESNext", "DOM"],
+    "experimentalDecorators": true,
+    "baseUrl": ".",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "paths": {
+      "@auth/*": ["src/*"],
+      "@deepcrawl/db-auth/*": ["../../../packages/db/db-auth/src/*"],
+      "@deepcrawl/auth/*": ["../../../packages/auth/src/*"],
+      "@deepcrawl/types/*": ["../../../packages/types/src/*"]
+    },
+    "types": ["./worker-configuration.d.ts"],
+    "allowJs": true,
+    "strict": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "skipLibCheck": true
+  },
+  "references": [
+    {
+      "path": ["../../../packages/auth"]
+    }
+  ]
+}

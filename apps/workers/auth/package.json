@@ -1,0 +1,36 @@
+{
+  "name": "deepcrawl-worker-auth",
+  "version": "0.0.1",
+  "description": "Authentication worker for deepcrawl",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "dev": "pnpm run clean && wrangler dev --inspector-port 9230",
+    "dev:remote": "wrangler dev --remote",
+    "dev:prod": "wrangler dev --remote --env=production",
+    "deploy": "pnpm run cf-typegen && pnpm run db:sync:prod && wrangler secret bulk --env=production .dev.vars.production && wrangler deploy --env=production --minify",
+    "check": "pnpm typecheck && biome ci .",
+    "fix": "biome check . --write",
+    "clean": "rimraf .wrangler .turbo",
+    "typecheck": "tsc --noEmit",
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings && pnpm typecheck",
+    "db:sync": "turbo run db:sync --filter=@deepcrawl/db-auth",
+    "db:sync:prod": "turbo run db:sync:prod --filter=@deepcrawl/db-auth",
+    "db:generate": "turbo run db:generate --filter=@deepcrawl/db-auth",
+    "db:migrate": "turbo run db:migrate --filter=@deepcrawl/db-auth",
+    "db:migrate:prod": "turbo run db:migrate:prod --filter=@deepcrawl/db-auth",
+    "auth:generate": "turbo run auth:generate --filter=@deepcrawl/auth"
+  },
+  "dependencies": {
+    "@deepcrawl/auth": "workspace:*",
+    "@deepcrawl/db-auth": "workspace:*",
+    "@neondatabase/serverless": "catalog:",
+    "drizzle-orm": "catalog:",
+    "stoker": "catalog:"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "catalog:",
+    "@types/node": "catalog:",
+    "drizzle-kit": "catalog:"
+  }
+}

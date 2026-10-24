@@ -1,0 +1,69 @@
+---
+title: Introduction
+description: Deepcrawl is an agents-oriented web page context extraction platform. Open Source. Open Code.
+---
+
+<LogoText  description="Deepcrawl is a 100% free, no-pricing, and fully open-source toolkit for agents to make any website data AI ready" />
+
+
+<Callout type="warn" title="ACTIVE DEVELOPMENT WARNING!!">
+Deepcrawl is under active development and early-stage. All APIs and SDKs are subject to change. Many planned features are coming soon. Use at your own risk.
+</Callout>
+
+
+## tl;dr one-liner
+
+<Callout type="info">
+Deepcrawl is free and open-source [Firecrawl](https://www.firecrawl.dev) alternative with even better performance, flexibility and transparency.
+</Callout>
+
+It extracts cleaned markdown of page content, agent-favoured links tree and page metadata that LLMs can digest with minimal token cost to reduce context switching and hallucination. Open Source. Open Code.
+
+
+
+## Core endpoints at a glance
+- **[`getMarkdown`](/docs/features/read/get-markdown):** Fast GET endpoint that returns prompt-ready markdown—ideal for caching snippets or feeding LLM prompts.
+- **[`readUrl`](/docs/features/read/read-url):** Full POST operation with metadata, cleaned HTML, markdown, robots, sitemap data, and metrics in one payload.
+- **[`extractLinks`](/docs/features/links/extract-links):** Configurable crawl endpoint that builds a agent-navigable links tree, filters external/media links.
+
+## Why Deepcrawl exists
+- Compress messy web pages into structured markdown that agents and humans can read.
+- Map every link in a domain so workflows understand site topology before they browse.
+- Offer type-safe, production-ready APIs and SDKs that feel native inside agent frameworks like `ai-sdk`.
+
+## How the system is put together
+- **Service pipeline:** Cloudflare Workers handle fetching, normalization, and link graph generation for each domain or URL.
+- **Rendering outputs:** Specially tuned engines convert HTML into markdown tuned for LLM prompts, keeping context rich while trimming noise.
+- **Developer toolchain:** The turborepo(monorepo) hosts shared packages, database modules, and scripts that keep the full stack consistent.
+
+## What technologies make Deepcrawl possible
+<Callout type="info">Shout out to all the awesome projects with remarkable maintainers and communities.</Callout>
+
+- **[Hono](https://hono.dev):** Lightweight edge-first framework powering our worker routing and middleware.
+- **[oRPC](https://orpc.unnoq.com):** Contract-first RPC layer that generates both OpenAPI REST endpoints and RPC methods exposed to SDK client from a single source.
+- **[better-auth](https://better-auth.com):** All-powered enterprise-grade secure session and API key management so teams can ship without rolling their own auth stack.
+- **[Next.js 16 App Router](https://nextjs.org):** Aggressively optimized dashboard combining with streaming routes and granular data fetching that manifests the best UI/UX industrial standards and stability.
+- **[Cloudflare Workers](https://workers.cloudflare.com):** Global runtime for V8 runtime web scraping, caching, and rate limiting with minimal latency and cost control, along with service bindings for communication between workers and more in-coming services for more planed features.
+- **[Zod v4](https://zod.dev):** Shared schema library that enforces type safety
+  across workers, SDKs, and docs. The JS/TS SDK also exposes it at
+  `deepcrawl/zod/v4` as an app-level helper can share the same runtime instance.
+- **[React Query](https://tanstack.com/query):** Advanced server-side prefetching and cache synchronization for fast dashboard interactions.
+- **[nuqs](https://nuqs.dev):** URL state serialization supports our advanced custom states management for best efficiency and user experience with shareable custom operation options by copying the URL.
+- **[shadcn/ui](https://ui.shadcn.com) + [Tailwind CSS v4](https://tailwindcss.com):** Beautiful and accessible components system and modern design tokens for consistent UI.
+- **[Drizzle ORM](https://orm.drizzle.team):** Type-safe data layer across both Neon PostgreSQL and Cloudflare D1 SQLite deployments for data persistence.
+- **[Upstash Redis](https://upstash.com) + [Cloudflare KV](https://developers.cloudflare.com/kv):** Upstash (optional) powers API rate limiting via `@upstash/ratelimit`, while KV provides layered caching for hot paths.
+- **[tsdown](https://tsdown.dev):** tsdown is The Elegant Library Bundler. `tsdown` is built on top of Rolldown, a cutting-edge bundler written in Rust. Already a substitute for `tsup`.
+- **[Biome](https://biomejs.dev):** Unified formatter and linter keeping code style consistent across apps, packages, and workers.
+
+## Ways to use Deepcrawl today
+- **Developers:** Consume the APIs directly or integrate with the fully typed JavaScript/TypeScript SDKs for fast agent workflows.
+- **Analysts & teams:** Use the Next.js 16 dashboard to run crawls, explore the API playground, review logs, and manage API keys without writing code.
+- **Online Playground:** Try Deepcrawl instantly in the browser, tweak options, and copy shareable URLs—see the [playground guide](/docs/usage/playground) for details.
+
+## Deploy on your own terms
+Deepcrawl ships with everything you need to self-host: deploy the dashboard to Vercel, the workers to Cloudflare, and you have a complete system without paid dependencies. Fork it, extend it, or plug it into your existing stack—the licenses and tooling encourage customization.
+
+## Where to go next
+- Follow the Quick Start at `/docs/quick-start`
+- Dive into API usage at
+- Explore the SDK reference

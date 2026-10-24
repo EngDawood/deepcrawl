@@ -1,0 +1,69 @@
+{
+  "root": false,
+  "extends": "//",
+  "files": {
+    "includes": [
+      "**",
+      "!node_modules",
+      "!.next",
+      "!src/components/ui",
+      "!components/ui",
+      "!src/components/reui/**/*",
+      "!components/reui/**/*",
+      "!src/styles/globals.css"
+    ]
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "nursery": {
+        "useSortedClasses": {
+          "level": "info",
+          "fix": "safe",
+          "options": {
+            "functions": ["cn", "clsx", "cva", "tw", "tw.*"]
+          }
+        }
+      },
+      "suspicious": {
+        "noUnknownAtRules": "off"
+      },
+      "security": {
+        "noDangerouslySetInnerHtml": "off"
+      },
+      "correctness": {
+        "noUnknownProperty": "off"
+      },
+      "complexity": {
+        "noImportantStyles": "off"
+      },
+      "a11y": {
+        "noStaticElementInteractions": "off",
+        "useValidAnchor": "off",
+        "useSemanticElements": "off", // Rule is buggy, revisit later
+        "noSvgWithoutTitle": "off", // We do not intend to adhere to this rule
+        "noAutofocus": "off", // We're highly intentional about when we use autofocus
+        "useFocusableInteractive": "off", // Disable focusable interactive element requirement
+        "useAriaPropsForRole": "off", // Disable required ARIA attributes check
+        "useKeyWithClickEvents": "off" // Disable keyboard event requirement with click events
+      },
+      "style": {
+        "noParameterAssign": "error",
+        "useAsConstAssertion": "error",
+        "useDefaultParameterLast": "error",
+        "useEnumInitializers": "error",
+        "useSelfClosingElements": "error",
+        "useSingleVarDeclarator": "error",
+        "noUnusedTemplateLiteral": "error",
+        "useNumberNamespace": "error",
+        "noInferrableTypes": "error",
+        "noUselessElse": "error"
+      }
+    }
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    }
+  }
+}

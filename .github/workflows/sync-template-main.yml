@@ -1,0 +1,42 @@
+name: Sync Template Branch
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+jobs:
+  sync:
+    concurrency:
+      group: sync-template-main
+      cancel-in-progress: true
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      # Keep template/main as a generated template output (no manual divergence).
+      # We intentionally strip repo-internal tooling (e.g. create-deepcrawl) so
+      # template consumers get a clean deployable codebase.
+      - name: Prepare template output (strip internal tooling)
+        run: |
+          git switch -c template-build
+          node packages/create-deepcrawl/scripts/prepare-template-output.mjs .
+          git add -A
+
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(template): strip internal tooling"
+          fi
+
+      - name: Push main -> template/main
+        run: |
+          git push origin HEAD:refs/heads/template/main --force-with-lease

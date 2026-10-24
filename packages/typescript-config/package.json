@@ -1,0 +1,13 @@
+{
+  "name": "@deepcrawl/typescript-config",
+  "version": "0.0.1",
+  "private": true,
+  "license": "PROPRIETARY",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "check": "biome ci .",
+    "fix": "biome check . --write"
+  }
+}

@@ -1,0 +1,35 @@
+---
+title: Troubleshooting
+description: Common issues and diagnostics checklist.
+---
+
+## Quick Checks
+
+- Confirm Node.js ≥ 20 and `pnpm -v` matches the version in `.tool-versions` if you use asdf.
+- Clear `.next`, `.turbo`, and `node_modules/.cache` when builds act oddly, or run `pnpm clean` to clean the workspace.
+- Run `pnpm check` to catch type or lint issues introduced during refactors.
+- Tail logs for Workers via `pnpm -C apps/workers/v0 dev` to capture request IDs.
+
+## Pitfalls and Fixes
+
+- **Missing env templates**: Forgetting to copy `.env.example` or `.dev.vars.example`
+  results in blank credentials. Re-run the `cp` commands from the setup guide and
+  restart dev servers.
+- **Wrong Worker bindings**: Wrangler deploys fail if KV, Durable Objects, or
+  queues are missing. Inspect `wrangler.jsonc` and rerun `wrangler secret put`
+  for each binding.
+- **SDK bundle errors**: Running `pnpm -C packages/sdks/js-ts build` without
+  clearing stale `dist` can produce mismatched declaration files. Use
+  `pnpm -C packages/sdks/js-ts clean` first.
+- **Stale OpenAPI spec**: After updating Worker routes or request/response
+  schemas, run `pnpm -C apps/workers/v0 gen:openapi` to regenerate
+  `openapi.toml`; otherwise docs and SDK clients drift.
+- **Schema drift**: Updating `packages/contracts` without regenerating the SDK
+  or redeploying Workers leads to type mismatches. Bump both in the same branch
+  and run affected builds.
+- **Rate limit surprises**: The API Worker (v0) uses Upstash (`@upstash/ratelimit`)
+  for API rate limiting. Development accounts can hit Upstash quotas quickly.
+  If you don't want rate limiting in dev, set `ENABLE_API_RATE_LIMIT=false`.
+- **Edge caching confusion**: Cloudflare caches worker responses aggressively.
+  Disable caching with preview bindings when testing or explicitly purge via the
+  Cloudflare dashboard.

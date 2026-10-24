@@ -1,0 +1,22 @@
+{
+  "title": "Docs",
+  "root": true,
+  "icon": "Book",
+  "defaultOpen": true,
+  "pages": [
+    "---Overview---",
+    "index",
+    "...overview",
+    "---Usage---",
+    "...usage",
+    "---Features and Endpoints---",
+    "...features/read",
+    "...features/links",
+    "features/activity-logs",
+    "---Integrations---",
+    "...integrations",
+    "---Reference---",
+    "...reference",
+    "support"
+  ]
+}

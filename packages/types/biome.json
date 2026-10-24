@@ -1,0 +1,23 @@
+{
+  "root": false,
+  "extends": "//",
+  "linter": {
+    "rules": {
+      "style": {
+        "noRestrictedImports": {
+          "level": "error",
+          "options": {
+            "paths": {
+              "@deepcrawl/types/schemas": "Do not import from '@deepcrawl/types/schemas' within this package. Use relative imports (e.g., '../../metrics/schemas') to avoid circular dependencies. This barrel export is only for external consumers."
+            }
+          }
+        }
+      },
+      "nursery": {
+        "noImportCycles": {
+          "level": "error"
+        }
+      }
+    }
+  }
+}

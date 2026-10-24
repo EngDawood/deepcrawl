@@ -1,0 +1,110 @@
+---
+title: Self Hosting
+description: Self-host the full stack for free.
+---
+
+## Fastest path
+
+If you want the quickest Cloudflare deployment path, start with
+[Deploy with npm create deepcrawl](/docs/reference/self-hosting/create-deepcrawl).
+It handles the API Worker setup for you in one guided flow.
+
+When the guided flow finishes it shows the deployed Worker URL, a link back to
+this doc, and the paths to `apps/workers/v0/.dev.vars` plus
+`apps/workers/v0/.dev.vars.production` where the CLI stored your `JWT_SECRET`.
+It also asks `Try your API now?` to run a quick test that auto-mints a 15-minute
+JWT (if needed) and prints status, preview, and a reusable `curl` command without
+saving any response files.
+
+## Prerequisites
+
+- Node.js 20 or later
+- `pnpm` for workspace commands
+- Wrangler CLI for Cloudflare Worker deployments
+- Access to the project repo: [https://github.com/lumpinif/deepcrawl](https://github.com/lumpinif/deepcrawl)
+
+## 1. Install Dependencies
+
+```bash
+pnpm install
+```
+
+Run this inside the repo root to install shared packages, the Next.js dashboard, and worker dependencies.
+
+## 2. Prepare Environment Templates
+
+Copy the provided templates so you can edit them locally:
+
+```bash
+cp apps/app/.env.example apps/app/.env.local
+cp apps/workers/auth/.dev.vars.example apps/workers/auth/.dev.vars
+cp apps/workers/v0/.dev.vars.example apps/workers/v0/.dev.vars
+```
+
+These files include placeholders for the API key, base URL, and Wrangler-specific tokens.
+
+`npm create deepcrawl` also writes your `JWT_SECRET` into
+`apps/workers/v0/.dev.vars` and `apps/workers/v0/.dev.vars.production` so you can
+reuse those values when you run Wrangler manually later.
+
+## 3. Fill In Secrets
+
+Edit each file and set the required values:
+
+> Important: Better Auth sessions are cookie-based. If you deploy the Dashboard
+> on `*.vercel.app` and the Auth Worker on `*.workers.dev`, the browser cannot
+> share cookies across those root domains.
+>
+> Recommended:
+>
+> - Use a custom domain and put Dashboard, API, and Auth under the same apex
+>   domain (for example `app.example.com`, `api.example.com`,
+>   `auth.example.com`).
+>
+> Also supported (free domains):
+>
+> - Keep the free domains and let the dashboard use a system-managed API key
+>   for API calls. When `AUTH_MODE=better-auth` and
+>   `NEXT_PUBLIC_USE_AUTH_WORKER=true` and your API URL is on a different apex
+>   domain than the dashboard, the dashboard will automatically create an API
+>   key named `"PLAYGROUND_API_KEY"`, store it on the device (localStorage),
+>   and use it as a fallback when cookie sessions can't reach your API. You can
+>   rotate it from **API Keys** if it's ever leaked.
+>
+> Optional:
+>
+> - Set `NEXT_PUBLIC_USE_AUTH_WORKER=false` to use the Next.js integrated Better
+>   Auth routes (same origin as the Dashboard).
+
+- `apps/app/.env.local`: `DEEPCRAWL_API_KEY`, optional `DEEPCRAWL_API_URL`, optional `NEXT_PUBLIC_BRAND_NAME` (UI, emails, OpenAPI)
+- `apps/workers/auth/.dev.vars`: Worker API key, JWT secrets, session salts
+- `apps/workers/v0/.dev.vars`: Worker API key, webhook signing secret, storage bindings
+
+Keep secrets out of version control—these templates are ignored by Git.
+
+## 4. Run the Next.js Dashboard
+
+```bash
+pnpm -C apps/app dev
+```
+
+This boots the dashboard with the server-side API client. Confirm the environment variables load correctly by signing in and running a sample crawl.
+
+## 5. Run Workers Locally
+
+```bash
+pnpm -C apps/app dev:workers
+```
+
+This command launches the dashboard and proxies the Workers so you can test auth flows end-to-end.
+
+## 6. Deploy Workers With Wrangler
+
+Before deploying, log into Cloudflare and ensure the secrets above are set via `wrangler secret put`.
+
+```bash
+pnpm -C apps/workers/auth deploy
+pnpm -C apps/workers/v0 deploy
+```
+
+Each script uses the corresponding `wrangler.jsonc` configuration and operator secrets. Confirm the deployed routes respond as expected.
