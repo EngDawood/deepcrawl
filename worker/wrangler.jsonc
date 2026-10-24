@@ -1,0 +1,23 @@
+{
+  "name": "deepcrawl-api-worker",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-02-05",
+  "compatibility_flags": ["nodejs_compat"],
+  "placement": { "mode": "smart" },
+  "vars": {
+    "AUTH_MODE": "jwt",
+    "ENABLE_ACTIVITY_LOGS": false,
+    "JWT_ISSUER": "",
+    "JWT_AUDIENCE": "",
+    "ENABLE_API_RATE_LIMIT": false,
+    "WORKER_NODE_ENV": "production"
+  },
+  "kv_namespaces": [
+    { "binding": "DEEPCRAWL_V0_LINKS_STORE", "id": "9c4eda8577ec4543a2010a88a26db8d8", "preview_id": "1a2e067e09c0464cbfc75ef4a08109c9" },
+    { "binding": "DEEPCRAWL_V0_READ_STORE", "id": "2b3eee67e3ea4938ac7a7aefd240c257", "preview_id": "4c7b0db616454507a24a1235e73e03f6" }
+  ],
+  "d1_databases": [
+    { "binding": "DB_V0", "database_name": "DEEPCRAWL_API_DB", "database_id": "31154253-9339-47ad-a7d2-a9ace02dd238", "migrations_dir": "../packages/db/db-d1/drizzle" }
+  ],
+  "observability": { "enabled": true }
+}
