@@ -35,7 +35,7 @@ export interface EnvVar {
 //   Wrangler vars (and not in `.dev.vars`).
 //
 // Example (do not re-add):
-// - `ENABLE_ACTIVITY_LOGS` must stay in `apps/workers/v0/wrangler.jsonc`.
+// - `ENABLE_ACTIVITY_LOGS` must stay in `worker/wrangler.jsonc`.
 //   Manage it via `packages/runtime/src/vars.ts` and `env/.vars`, then run
 //   `pnpm env:sync:vars` (or `pnpm env:bootstrap`) so Wrangler typegen keeps the
 //   binding typed as `boolean` instead of widening it to `string`.

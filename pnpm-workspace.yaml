@@ -1,5 +1,5 @@
 packages:
-  - "apps/workers/v0"
+  - "worker"
   - "packages/*"
   - "packages/db/db-d1"
   - "packages/db/db-auth"

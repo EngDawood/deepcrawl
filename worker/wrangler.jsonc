@@ -17,7 +17,7 @@
     { "binding": "DEEPCRAWL_V0_READ_STORE", "id": "2b3eee67e3ea4938ac7a7aefd240c257", "preview_id": "4c7b0db616454507a24a1235e73e03f6" }
   ],
   "d1_databases": [
-    { "binding": "DB_V0", "database_name": "DEEPCRAWL_API_DB", "database_id": "31154253-9339-47ad-a7d2-a9ace02dd238", "migrations_dir": "../../../packages/db/db-d1/drizzle" }
+    { "binding": "DB_V0", "database_name": "DEEPCRAWL_API_DB", "database_id": "31154253-9339-47ad-a7d2-a9ace02dd238", "migrations_dir": "../packages/db/db-d1/drizzle" }
   ],
   "observability": { "enabled": true }
 }

@@ -4,10 +4,10 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "typecheck": "pnpm -C apps/workers/v0 typecheck",
-    "build": "pnpm -C apps/workers/v0 exec wrangler deploy --dry-run --minify --outdir dist",
-    "deploy": "pnpm -C apps/workers/v0 exec wrangler deploy --minify",
-    "migrate": "pnpm -C apps/workers/v0 exec wrangler d1 migrations apply DB_V0 --remote"
+    "typecheck": "pnpm -C worker typecheck",
+    "build": "pnpm -C worker exec wrangler deploy --dry-run --minify --outdir dist",
+    "deploy": "pnpm -C worker exec wrangler deploy --minify",
+    "migrate": "pnpm -C worker exec wrangler d1 migrations apply DB_V0 --remote"
   },
   "devDependencies": {
     "@biomejs/biome": "catalog:",
