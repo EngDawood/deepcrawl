@@ -1,0 +1,44 @@
+{
+  "name": "@deepcrawl/auth",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Authentication package for @deepcrawl",
+  "main": "index.ts",
+  "author": "deepcrawl.ai - Felix",
+  "license": "MIT",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "check": "pnpm typecheck && biome ci .",
+    "fix": "biome check . --write",
+    "auth:generate": "dotenv -e ../../apps/app/.env -- pnpm dlx @better-auth/cli@latest generate --output ../db/db-auth/src/db/schema.ts -y && biome check ../db/db-auth/src/db/schema.ts --write && turbo typecheck --filter=@deepcrawl/db-auth",
+    "email:dev": "email dev --dir src/templates",
+    "email:export": "email export --dir src/templates"
+  },
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
+  },
+  "keywords": [
+    "deepcrawl",
+    "auth",
+    "authentication"
+  ],
+  "dependencies": {
+    "@better-auth/passkey": "^1.4.18",
+    "@deepcrawl/runtime": "workspace:*",
+    "@react-email/components": "^0.5.7",
+    "better-auth-harmony": "^1.2.5",
+    "react": "catalog:",
+    "react-email": "^4.3.2",
+    "resend": "^6.9.1"
+  },
+  "devDependencies": {
+    "@deepcrawl/db-auth": "workspace:*",
+    "@deepcrawl/typescript-config": "workspace:*",
+    "@react-email/preview-server": "^4.3.2",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:"
+  }
+}

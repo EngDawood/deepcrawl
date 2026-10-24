@@ -1,0 +1,42 @@
+{
+  "name": "@deepcrawl/db-auth",
+  "version": "0.0.1",
+  "description": "Database package for @deepcrawl",
+  "private": true,
+  "main": "index.ts",
+  "author": "deepcrawl.ai - Felix",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "check": "pnpm typecheck && biome ci .",
+    "fix": "biome check . --write",
+    "db:push": "dotenv -e ../../../apps/app/.env -- pnpm drizzle-kit push",
+    "db:push:prod": "dotenv -e ../../../env/.env -- pnpm drizzle-kit push",
+    "db:studio": "dotenv -e ../../../apps/app/.env -- pnpm drizzle-kit studio",
+    "db:generate": "dotenv -e ../../../apps/app/.env -- pnpm drizzle-kit generate",
+    "db:generate:prod": "dotenv -e ../../../env/.env -- pnpm drizzle-kit generate",
+    "db:migrate": "dotenv -e ../../../apps/app/.env -- pnpm drizzle-kit migrate",
+    "db:migrate:prod": "dotenv -e ../../../env/.env -- pnpm drizzle-kit migrate",
+    "db:sync": "pnpm run db:generate && pnpm run db:migrate",
+    "db:sync:prod": "pnpm run db:generate:prod && pnpm run db:migrate:prod"
+  },
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
+  },
+  "keywords": [
+    "deepcrawl",
+    "db",
+    "database"
+  ],
+  "devDependencies": {
+    "@deepcrawl/typescript-config": "workspace:*",
+    "@types/node": "catalog:",
+    "drizzle-kit": "catalog:"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "catalog:",
+    "drizzle-orm": "catalog:"
+  }
+}

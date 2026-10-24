@@ -1,0 +1,6 @@
+{
+  "extends": "@deepcrawl/typescript-config/base.json",
+  "compilerOptions": {
+    "strictNullChecks": true
+  }
+}

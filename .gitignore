@@ -1,0 +1,94 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# Dependencies
+node_modules/
+.wrangler
+.pnp
+.pnp.js
+
+# prod
+dist/
+
+# dev
+.yarn/
+!.yarn/releases
+.vscode/*
+!.vscode/launch.json
+!.vscode/*.code-snippets
+!.vscode/extensions.json
+!.vscode/settings.json
+.vscode/settings.local.json
+!.vscode/tasks.json
+.idea/workspace.xml
+.idea/usage.statistics.xml
+.idea/shelf
+
+# Local env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.production
+.env.test
+.env.test.local
+.vars
+env/.env.local
+
+.dev.vars
+.dev.vars.dev
+.dev.vars.local
+.dev.vars.dev.local
+.dev.vars.development.local
+.dev.vars.test.local
+.dev.vars.production.local
+.dev.vars.prod
+.dev.vars.production
+.dev.vars.test
+.dev.vars.test.local
+
+# Testing
+coverage
+
+# Turbo
+.turbo
+
+# Vercel
+.vercel
+
+# Build Outputs
+.next/
+out/
+build
+dist
+.contentlayer
+.eslintcache
+.source
+
+# logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Misc
+.DS_Store
+*.pem
+
+#todo
+TODO.md
+
+# TypeScript build cache
+*.tsbuildinfo
+.tsbuildinfo
+tsconfig.tsbuildinfo
+
+.cursor
+.claude
+.serena
+.spec-workflow
+.specify
+# next-agents-md
+.next-docs/

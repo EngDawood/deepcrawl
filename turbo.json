@@ -1,0 +1,93 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "ui": "stream",
+  "globalDependencies": ["**/.env*", "**/tsconfig*.json"],
+  "globalEnv": [
+    "AUTH_MODE",
+    "AUTH_JWT_TOKEN",
+    "NEXT_PUBLIC_BRAND_NAME",
+    "NEXT_PUBLIC_USE_AUTH_WORKER",
+    "BETTER_AUTH_URL",
+    "NEXT_PUBLIC_BETTER_AUTH_URL",
+    "BETTER_AUTH_SECRET",
+    "JWT_SECRET",
+    "DATABASE_URL",
+    "GITHUB_CLIENT_ID",
+    "GITHUB_CLIENT_SECRET",
+    "NEXT_PUBLIC_GOOGLE_CLIENT_ID",
+    "GOOGLE_CLIENT_SECRET",
+    "RESEND_API_KEY",
+    "FROM_EMAIL",
+    "NEXT_PUBLIC_DEEPCRAWL_API_URL"
+  ],
+  "tasks": {
+    "auth:generate": {
+      "cache": false
+    },
+    "db:sync": {
+      "cache": false
+    },
+    "db:sync:prod": {
+      "cache": false
+    },
+    "db:generate": {
+      "cache": false
+    },
+    "db:generate:prod": {
+      "cache": false
+    },
+    "db:migrate": {
+      "cache": false
+    },
+    "db:migrate:prod": {
+      "cache": false
+    },
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"],
+      "cache": true
+    },
+    "lint": {
+      "dependsOn": ["^lint"],
+      "outputs": [],
+      "cache": true
+    },
+    "format": {
+      "dependsOn": ["^format"],
+      "outputs": [],
+      "cache": true
+    },
+    "check": {
+      "dependsOn": ["^check"],
+      "outputs": [],
+      "cache": true
+    },
+    "fix": {
+      "dependsOn": ["^fix"],
+      "outputs": [],
+      "cache": true
+    },
+    "typecheck": {
+      "dependsOn": ["^typecheck"],
+      "outputs": [],
+      "cache": true
+    },
+    "check-types": {
+      "dependsOn": ["^check-types"],
+      "outputs": [],
+      "cache": true
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true,
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": []
+    },
+    "cf-typegen": {
+      "dependsOn": ["^cf-typegen"],
+      "outputs": [],
+      "cache": false
+    }
+  }
+}
