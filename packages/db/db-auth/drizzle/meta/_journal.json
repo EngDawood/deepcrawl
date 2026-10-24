@@ -1,0 +1,62 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1748710553925,
+      "tag": "0000_old_mephisto",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1748767570499,
+      "tag": "0001_lowly_stephen_strange",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1748767923652,
+      "tag": "0002_plain_reaper",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1749299561996,
+      "tag": "0003_loose_blindfold",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1750252633464,
+      "tag": "0004_lazy_lifeguard",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1750333960188,
+      "tag": "0005_blushing_steel_serpent",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1753282687457,
+      "tag": "0006_secret_jamie_braddock",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1757515880057,
+      "tag": "0007_keen_kid_colt",
+      "breakpoints": true
+    }
+  ]
+}

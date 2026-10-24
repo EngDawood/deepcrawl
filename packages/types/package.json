@@ -1,0 +1,79 @@
+{
+  "name": "@deepcrawl/types",
+  "version": "0.0.1",
+  "description": "TypeScript types and schemas for the @deepcrawl API",
+  "author": "deepcrawl.ai - Felix",
+  "private": true,
+  "types": "./src/index.ts",
+  "exports": {
+    "./*": "./src/*",
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts",
+      "default": "./src/index.ts"
+    },
+    "./routers/links": {
+      "types": "./src/routers/links/index.ts"
+    },
+    "./routers/read": {
+      "types": "./src/routers/read/index.ts"
+    },
+    "./routers/logs": {
+      "types": "./src/routers/logs/index.ts"
+    },
+    "./services/scrape": {
+      "types": "./src/services/scrape/index.ts"
+    },
+    "./services/html-cleaning": {
+      "types": "./src/services/html-cleaning/index.ts"
+    },
+    "./services/link": {
+      "types": "./src/services/link/index.ts"
+    },
+    "./services/metadata": {
+      "types": "./src/services/metadata/index.ts"
+    },
+    "./services/cache": {
+      "types": "./src/services/cache/index.ts"
+    },
+    "./services/markdown": {
+      "types": "./src/services/markdown/index.ts"
+    },
+    "./common": {
+      "types": "./src/common/index.ts"
+    },
+    "./configs": {
+      "types": "./src/configs/index.ts"
+    },
+    "./configs/default": {
+      "types": "./src/configs/default.ts"
+    },
+    "./metrics": {
+      "types": "./src/metrics/index.ts"
+    },
+    "./schemas": {
+      "types": "./src/schemas.ts"
+    },
+    "./utils": {
+      "types": "./src/utils/index.ts"
+    }
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "check": "pnpm typecheck && biome ci .",
+    "fix": "biome check . --write"
+  },
+  "peerDependencies": {
+    "typescript": ">=5.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:"
+  },
+  "keywords": [
+    "deepcrawl",
+    "api",
+    "types",
+    "typescript",
+    "zod"
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "name": "deepcrawl-worker",
+  "version": "0.0.1",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "typecheck": "pnpm -C apps/workers/v0 typecheck",
+    "build": "pnpm -C apps/workers/v0 exec wrangler deploy --dry-run --minify --outdir dist",
+    "deploy": "pnpm -C apps/workers/v0 exec wrangler deploy --minify",
+    "migrate": "pnpm -C apps/workers/v0 exec wrangler d1 migrations apply DB_V0 --remote"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "catalog:",
+    "@deepcrawl/runtime": "workspace:*",
+    "@deepcrawl/typescript-config": "workspace:*",
+    "@orpc/client": "catalog:",
+    "@orpc/contract": "catalog:",
+    "@orpc/json-schema": "catalog:",
+    "@orpc/openapi": "catalog:",
+    "@orpc/openapi-client": "catalog:",
+    "@orpc/server": "catalog:",
+    "@orpc/zod": "catalog:",
+    "better-auth": "catalog:",
+    "dotenv-cli": "catalog:",
+    "hono": "catalog:",
+    "rimraf": "catalog:",
+    "turbo": "catalog:",
+    "typescript": "catalog:",
+    "wrangler": "catalog:",
+    "zod": "catalog:"
+  },
+  "packageManager": "pnpm@10.29.1",
+  "engines": {
+    "node": ">=20"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "workerd",
+      "better-sqlite3",
+      "unrs-resolver"
+    ]
+  }
+}
