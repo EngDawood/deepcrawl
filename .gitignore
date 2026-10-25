@@ -89,6 +89,7 @@ tsconfig.tsbuildinfo
 .claude/*
 !.claude/skills
 !.claude/settings.json
+!.claude/plugins
 .serena
 .spec-workflow
 .specify
