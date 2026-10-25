@@ -30,6 +30,7 @@ export const CORS_OPTIONS = {
     'Pragma',
     'If-Modified-Since',
     'If-None-Match',
+    'Mcp-Protocol-Version',
   ],
   exposeHeaders: [
     'Content-Length',

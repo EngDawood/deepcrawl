@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "deepcrawl": {
+      "type": "http",
+      "url": "https://deepcrawl-api-worker.dawod.workers.dev/mcp",
+      "headers": {
+        "Authorization": "Bearer ${DEEPCRAWL_TOKEN}"
+      }
+    }
+  }
+}
