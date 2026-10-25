@@ -12,6 +12,7 @@ Commands live in `package.json` scripts. This file holds what they don't say.
 - `worker/src/routers/<area>/`: oRPC handlers. `routers/index.ts` is the route table.
 - `packages/contracts/src/`: one oRPC contract per endpoint. Handlers implement contracts.
 - `packages/types`: zod schemas shared by contracts and handlers.
+- `worker/src/mcp/server.ts`: MCP tools (`read_url`, `extract_links`), mounted at `/mcp` in `app.ts`. They call the oRPC router in-process, so a new endpoint is exposed over MCP by adding a tool here.
 - `worker/openapi_orpc.yaml`: generated. Regenerate with `pnpm -C worker gen:openapi`; hand edits are overwritten.
 
 ## Add or change an endpoint

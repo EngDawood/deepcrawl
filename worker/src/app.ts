@@ -1,10 +1,12 @@
 import { resolveBrandConfigFromEnv } from '@deepcrawl/runtime';
+import { WebStandardStreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js';
 import { getRuntimeKey } from 'hono/adapter';
 import { getConnInfo } from 'hono/cloudflare-workers';
 import { createContext } from '@/lib/context';
 import createHonoApp from '@/lib/hono/create-hono-app';
 import { openAPIHandler } from '@/lib/openapi/openapi.handler';
 import { rpcHandler } from '@/lib/orpc/rpc.handler';
+import { createMcpServer } from '@/mcp/server';
 
 // Preload heavy modules during worker initialization to reduce cold start time
 import '@/services/scrape/scrape.service';
@@ -60,6 +62,18 @@ app.use('/rpc/*', async (c, next) => {
   }
 
   await next();
+});
+
+// MCP (Streamable HTTP, stateless). Auth runs in the global middleware chain.
+app.all('/mcp', async (c) => {
+  const context = await createContext({ context: c });
+  const server = createMcpServer(context);
+  const transport = new WebStandardStreamableHTTPServerTransport({
+    sessionIdGenerator: undefined,
+    enableJsonResponse: true,
+  });
+  await server.connect(transport);
+  return transport.handleRequest(c.req.raw);
 });
 
 // Handle all other routes with OpenAPI handler

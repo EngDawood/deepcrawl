@@ -33,6 +33,10 @@ Ask the user for the secret. It lives only in Cloudflare, so an unset `JWT_SECRE
 curl -H "Authorization: Bearer $TOKEN" "$BASE/read?url=example.com"
 ```
 
+## MCP
+
+`/mcp` serves the same two operations as MCP tools, `read_url` and `extract_links` (Streamable HTTP, stateless, same bearer token). `.mcp.json` registers it from `DEEPCRAWL_TOKEN`. Tokens expire (default 1 hour); pass a TTL in seconds as the second argument to `mint-jwt.mjs` for a longer one.
+
 ## Options
 
 Option names and defaults live in `worker/openapi_orpc.yaml` (18k lines). Grep for the schema (`ReadOptions`, the links options) instead of reading the file whole.

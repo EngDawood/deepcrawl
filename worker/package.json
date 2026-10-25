@@ -28,6 +28,7 @@
     "@deepcrawl/runtime": "workspace:*",
     "@deepcrawl/types": "workspace:*",
     "@hono-rate-limiter/cloudflare": "catalog:",
+    "@modelcontextprotocol/sdk": "catalog:",
     "@hono/zod-openapi": "catalog:",
     "@hono/zod-validator": "catalog:",
     "@paoramen/cheer-reader": "npm:@jsr/paoramen__cheer-reader@^0.1.2",
