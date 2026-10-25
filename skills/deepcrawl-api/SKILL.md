@@ -35,7 +35,7 @@ curl -H "Authorization: Bearer $TOKEN" "$BASE/read?url=example.com"
 
 ## MCP
 
-`/mcp` serves the same two operations as MCP tools, `read_url` and `extract_links` (Streamable HTTP, stateless, same bearer token). `.mcp.json` registers it from `DEEPCRAWL_TOKEN`. Tokens expire (default 1 hour); pass a TTL in seconds as the second argument to `mint-jwt.mjs` for a longer one.
+`/mcp` serves the API as MCP tools (Streamable HTTP, stateless, same bearer token): `deepcrawl_read_url`, `deepcrawl_extract_links`, `deepcrawl_list_logs`, `deepcrawl_get_log`, `deepcrawl_export_log_response`. The log tools return nothing unless `ENABLE_ACTIVITY_LOGS` is true on the worker. `.mcp.json` registers it from `DEEPCRAWL_TOKEN`. Tokens expire (default 1 hour); pass a TTL in seconds as the second argument to `mint-jwt.mjs` for a longer one.
 
 ## Options
 
