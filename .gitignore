@@ -86,7 +86,8 @@ TODO.md
 tsconfig.tsbuildinfo
 
 .cursor
-.claude
+.claude/*
+!.claude/skills
 .serena
 .spec-workflow
 .specify
