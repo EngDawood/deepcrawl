@@ -29,10 +29,6 @@
     "wrangler": "catalog:",
     "zod": "catalog:"
   },
-  "packageManager": "pnpm@10.29.1",
-  "engines": {
-    "node": ">=20"
-  },
   "pnpm": {
     "onlyBuiltDependencies": [
       "esbuild",
