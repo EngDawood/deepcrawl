@@ -20,14 +20,6 @@ Core TypeScript configuration with strict settings:
 }
 ```
 
-### `nextjs.json`
-Next.js specific TypeScript configuration:
-```json
-{
-  "extends": "@deepcrawl/typescript-config/nextjs"
-}
-```
-
 ### `react-library.json`
 For React component libraries:
 ```json
