@@ -17,11 +17,9 @@ const CODE_TTL_S = 60;
 const MIN_PASSWORD_LENGTH = 24;
 const PKCE_CHALLENGE_PATTERN = /^[A-Za-z0-9_-]{43,128}$/;
 
-/** Fixed callbacks for hosted MCP clients. Loopback is allowed for CLI clients. */
-const ALLOWED_REDIRECT_URIS = new Set([
-  'https://claude.ai/api/mcp/auth_callback',
-  'https://claude.com/api/mcp/auth_callback',
-]);
+/** Any https callback is allowed for hosted MCP clients. Loopback http is
+ * allowed for CLI clients. The consent page is gated by MCP_OAUTH_PASSWORD,
+ * so only someone with that password can mint a code for any redirect. */
 const LOOPBACK_HOSTS = new Set(['localhost', '127.0.0.1', '[::1]']);
 
 export function isOAuthPublicPath(path: string) {
@@ -29,12 +27,11 @@ export function isOAuthPublicPath(path: string) {
 }
 
 export function isAllowedRedirectUri(raw: string) {
-  if (ALLOWED_REDIRECT_URIS.has(raw)) {
-    return true;
-  }
-
   try {
     const url = new URL(raw);
+    if (url.protocol === 'https:') {
+      return true;
+    }
     return url.protocol === 'http:' && LOOPBACK_HOSTS.has(url.hostname);
   } catch {
     return false;
